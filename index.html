@@ -17,8 +17,8 @@
     align-items: center;
     flex-direction: column;
     text-align: center;
-    transition: background 1s ease;
-    color: white;
+    transition: background 1s ease, color 0.8s ease;
+    color: #222;
   }
 
   h1, h2, p {
@@ -27,7 +27,7 @@
   }
 
   button {
-    background: #ff0066;
+    background: #ff3385;
     color: white;
     border: none;
     padding: 12px 30px;
@@ -37,10 +37,11 @@
     margin-top: 20px;
     transition: 0.3s;
     z-index: 2;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   }
 
   button:hover {
-    background: #ff3385;
+    background: #ff5fa0;
     transform: scale(1.05);
   }
 
@@ -68,13 +69,15 @@
 
   #slide {
     z-index: 1;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     max-width: 80%;
+    text-shadow: 0 2px 5px rgba(255,255,255,0.5);
   }
 
   #countdown {
     font-size: 3rem;
     margin-top: 20px;
+    color: #111;
   }
 </style>
 </head>
@@ -86,14 +89,14 @@
 
 <script>
   const slides = [
-    {text: "💭 Kjhgsj... 0100110 ... random signals from my heart 💘", bg: "linear-gradient(120deg, #ff9a9e, #fad0c4)"},
-    {text: "😳 You read that? You shouldn't have... because it means you promised to love me forever 💞", bg: "linear-gradient(120deg, #f6d365, #fda085)"},
-    {text: "😈 Too late now... destiny sealed! You're officially mine 💍", bg: "linear-gradient(120deg, #a1c4fd, #c2e9fb)"},
-    {text: "🚫 Don’t open this next one... seriously, don’t 😅", bg: "linear-gradient(120deg, #fbc2eb, #a6c1ee)"},
-    {text: "😬 Oops... that was actually meant for my ex 😅", bg: "linear-gradient(120deg, #ffecd2, #fcb69f)"},
-    {text: "😂 Wait—what ex? You axed them all with your axe! 💀", bg: "linear-gradient(120deg, #84fab0, #8fd3f4)"},
-    {text: "💖 Anyway... now you’re stuck with me for life 💕", bg: "linear-gradient(120deg, #ff9a9e, #fecfef)"},
-    {text: "😱 This slide is empty... or is it? 👀", bg: "linear-gradient(120deg, #fddb92, #d1fdff)"}
+    {text: "💭 Kjhgsj... 0100110 ... random signals from my heart 💘", bg: "linear-gradient(120deg, #fda085, #f6d365)", color: "#222"},
+    {text: "😳 You read that? You shouldn't have... because it means you promised to love me forever 💞", bg: "linear-gradient(120deg, #fddb92, #d1fdff)", color: "#222"},
+    {text: "😈 Too late now... destiny sealed! You're officially mine 💍", bg: "linear-gradient(120deg, #ffb199, #ff0844)", color: "#fff"},
+    {text: "🚫 Don’t open this next one... seriously, don’t 😅", bg: "linear-gradient(120deg, #c2e9fb, #a1c4fd)", color: "#222"},
+    {text: "😬 Oops... that was actually meant for my ex 😅", bg: "linear-gradient(120deg, #ffecd2, #fcb69f)", color: "#222"},
+    {text: "😂 Wait—what ex? You axed them all with your axe! 💀", bg: "linear-gradient(120deg, #84fab0, #8fd3f4)", color: "#222"},
+    {text: "💖 Anyway... now you’re stuck with me for life 💕", bg: "linear-gradient(120deg, #ff9a9e, #fecfef)", color: "#222"},
+    {text: "😱 This slide is empty... or is it? 👀", bg: "linear-gradient(120deg, #a6c1ee, #fbc2eb)", color: "#222"}
   ];
 
   const emojis = ["💖", "😂", "😈", "😘", "💕", "💞", "🌸", "😍", "😅", "💘"];
@@ -101,7 +104,7 @@
   const emojiRain = document.getElementById("emojiRain");
   const nextBtn = document.getElementById("nextBtn");
 
-  // Floating emojis generator
+  // Floating emoji generator
   function createEmoji() {
     const emoji = document.createElement("div");
     emoji.classList.add("emoji");
@@ -117,6 +120,7 @@
 
   function showSlide() {
     document.body.style.background = slides[index].bg;
+    document.body.style.color = slides[index].color;
     slide.innerHTML = slides[index].text;
   }
 
@@ -131,6 +135,8 @@
 
   function startCountdown() {
     nextBtn.style.display = "none";
+    document.body.style.background = "linear-gradient(120deg, #000000, #434343)";
+    document.body.style.color = "#fff";
     let count = 10;
     slide.innerHTML = `<h2>🕒 Countdown starting...</h2><div id='countdown'>${count}</div>`;
     const interval = setInterval(() => {
