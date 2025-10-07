@@ -20,12 +20,10 @@
       transition: background 1s ease, color 0.8s ease;
       color: #222;
     }
-
     h1, h2, p {
       margin: 10px;
       transition: opacity 1s ease;
     }
-
     button {
       background: #ff3385;
       color: white;
@@ -39,12 +37,10 @@
       z-index: 2;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-
     button:hover {
       background: #ff5fa0;
       transform: scale(1.05);
     }
-
     #emojiRain {
       position: fixed;
       top: 0;
@@ -55,31 +51,26 @@
       overflow: hidden;
       z-index: 0;
     }
-
     .emoji {
       position: absolute;
       font-size: 2rem;
       animation: fall 5s linear infinite;
     }
-
     @keyframes fall {
       0% { transform: translateY(-10%); opacity: 1; }
       100% { transform: translateY(110vh); opacity: 0; }
     }
-
     #slide {
       z-index: 1;
       font-size: 1.6rem;
       max-width: 80%;
       text-shadow: 0 2px 5px rgba(255,255,255,0.5);
     }
-
     #countdown {
       font-size: 3rem;
       margin-top: 20px;
       color: #111;
     }
-
     .soundPrompt {
       position: fixed;
       bottom: 20px;
@@ -106,14 +97,14 @@
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
     const slides = [
-      {text: "💭 Kjhgsj... 0100110 ... random signals from my heart 💘", bg: "linear-gradient(120deg, #fda085, #f6d365)", color: "#222"},
-      {text: "😳 You read that? You shouldn't have... because it means you promised to love me forever 💞", bg: "linear-gradient(120deg, #fddb92, #d1fdff)", color: "#222"},
-      {text: "😈 Too late now... destiny sealed! You're officially mine 💍", bg: "linear-gradient(120deg, #ffb199, #ff0844)", color: "#fff"},
-      {text: "🚫 Don’t open this next one... seriously, don’t 😅", bg: "linear-gradient(120deg, #c2e9fb, #a1c4fd)", color: "#222"},
-      {text: "😬 Oops... that was actually meant for my ex 😅", bg: "linear-gradient(120deg, #ffecd2, #fcb69f)", color: "#222"},
-      {text: "😂 Wait—what ex? You axed them all with your axe! 💀", bg: "linear-gradient(120deg, #84fab0, #8fd3f4)", color: "#222"},
-      {text: "💖 Anyway... now you’re stuck with me for life 💕", bg: "linear-gradient(120deg, #ff9a9e, #fecfef)", color: "#222"},
-      {text: "😱 This slide is empty... or is it? 👀", bg: "linear-gradient(120deg, #a6c1ee, #fbc2eb)", color: "#222"}
+      { text: "💭 Kjhgsj... 0100110 ... random signals from my heart 💘", bg: "linear-gradient(120deg, #fda085, #f6d365)", color: "#222" },
+      { text: "😳 You read that? You shouldn't have... because it means you promised to love me forever 💞", bg: "linear-gradient(120deg, #fddb92, #d1fdff)", color: "#222" },
+      { text: "😈 Too late now... destiny sealed! You're officially mine 💍", bg: "linear-gradient(120deg, #ffb199, #ff0844)", color: "#fff" },
+      { text: "🚫 Don’t open this next one... seriously, don’t 😅", bg: "linear-gradient(120deg, #c2e9fb, #a1c4fd)", color: "#222" },
+      { text: "😬 Oops... that was actually meant for my ex 😅", bg: "linear-gradient(120deg, #ffecd2, #fcb69f)", color: "#222" },
+      { text: "😂 Wait—what ex? You axed them all with your axe! 💀", bg: "linear-gradient(120deg, #84fab0, #8fd3f4)", color: "#222" },
+      { text: "💖 Anyway... now you’re stuck with me for life 💕", bg: "linear-gradient(120deg, #ff9a9e, #fecfef)", color: "#222" },
+      { text: "😱 This slide is empty... or is it? 👀", bg: "linear-gradient(120deg, #a6c1ee, #fbc2eb)", color: "#222" }
     ];
 
     const emojis = ["💖","😂","😈","😘","💕","💞","🌸","😍","😅","💘"];
@@ -122,12 +113,12 @@
     const nextBtn = document.getElementById("nextBtn");
     const soundPrompt = document.getElementById("soundPrompt");
 
-    function createEmoji(){
+    function createEmoji() {
       const e = document.createElement("div");
       e.classList.add("emoji");
       e.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-      e.style.left = Math.random()*100 + "vw";
-      e.style.animationDuration = 3 + Math.random()*3 + "s";
+      e.style.left = Math.random() * 100 + "vw";
+      e.style.animationDuration = 3 + Math.random() * 3 + "s";
       emojiRain.appendChild(e);
       setTimeout(() => e.remove(), 5000);
     }
@@ -135,7 +126,7 @@
 
     let idx = 0;
 
-    function showSlide(){
+    function showSlide() {
       document.body.style.background = slides[idx].bg;
       document.body.style.color = slides[idx].color;
       slide.innerHTML = slides[idx].text;
@@ -143,7 +134,7 @@
 
     nextBtn.addEventListener("click", () => {
       idx++;
-      if(idx < slides.length){
+      if (idx < slides.length) {
         showSlide();
         enableMusicOnInteraction();
       } else {
@@ -151,7 +142,7 @@
       }
     });
 
-    function startCountdown(){
+    function startCountdown() {
       nextBtn.style.display = "none";
       document.body.style.background = "linear-gradient(120deg, #000000, #434343)";
       document.body.style.color = "#fff";
@@ -160,7 +151,7 @@
       const interval = setInterval(() => {
         count--;
         document.getElementById("countdown").innerText = count;
-        if(count === 0){
+        if (count === 0) {
           clearInterval(interval);
           slide.innerHTML = `<h2>Okay... open it now 💌</h2><p>Loading surprise...</p>`;
           setTimeout(() => {
@@ -170,27 +161,28 @@
       }, 1000);
     }
 
-    // YouTube hidden audio logic
+    // Hidden YouTube music logic
     let ytPlayer;
     let musicEnabled = false;
 
-    function onYouTubeIframeAPIReady(){
+    function onYouTubeIframeAPIReady() {
       const div = document.createElement("div");
-      div.id = "yt-audio";
+      div.id = "yt-hidden-music";
       div.style.position = "fixed";
       div.style.left = "-9999px";
       div.style.width = "1px";
       div.style.height = "1px";
       document.body.appendChild(div);
 
-      ytPlayer = new YT.Player("yt-audio", {
-        height: "1", width: "1",
-        videoId: "KUpwupYj_tY",
+      ytPlayer = new YT.Player("yt-hidden-music", {
+        height: "1",
+        width: "1",
+        videoId: "UiLbRkULcFE",
         playerVars: {
           autoplay: 1,
           controls: 0,
           loop: 1,
-          playlist: "KUpwupYj_tY",
+          playlist: "UiLbRkULcFE",
           modestbranding: 1,
           rel: 0,
           playsinline: 1,
@@ -205,17 +197,17 @@
       });
     }
 
-    function enableMusicOnInteraction(){
-      if(!ytPlayer || musicEnabled) return;
+    function enableMusicOnInteraction() {
+      if (!ytPlayer || musicEnabled) return;
       try {
         ytPlayer.unMute();
         ytPlayer.setVolume(22);
         musicEnabled = true;
-      } catch(e){
+      } catch(e) {
         soundPrompt.style.display = "block";
-        document.addEventListener('click', function tryAgain(){
+        document.addEventListener('click', function tryAgain() {
           enableMusicOnInteraction();
-          soundPrompt.style.display = "none";
+          soundPrompt.style.display = 'none';
           document.removeEventListener('click', tryAgain);
         });
       }
