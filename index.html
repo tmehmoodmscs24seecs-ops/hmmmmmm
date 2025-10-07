@@ -26,6 +26,24 @@
     transition: opacity 1s ease;
   }
 
+  button {
+    background: #ff0066;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+    z-index: 2;
+  }
+
+  button:hover {
+    background: #ff3385;
+    transform: scale(1.05);
+  }
+
   #emojiRain {
     position: fixed;
     top: 0;
@@ -64,6 +82,7 @@
 
 <div id="emojiRain"></div>
 <div id="slide"></div>
+<button id="nextBtn">Next ➜</button>
 
 <script>
   const slides = [
@@ -80,7 +99,9 @@
   const emojis = ["💖", "😂", "😈", "😘", "💕", "💞", "🌸", "😍", "😅", "💘"];
   const slide = document.getElementById("slide");
   const emojiRain = document.getElementById("emojiRain");
+  const nextBtn = document.getElementById("nextBtn");
 
+  // Floating emojis generator
   function createEmoji() {
     const emoji = document.createElement("div");
     emoji.classList.add("emoji");
@@ -97,16 +118,19 @@
   function showSlide() {
     document.body.style.background = slides[index].bg;
     slide.innerHTML = slides[index].text;
+  }
 
-    if (index < slides.length - 1) {
-      index++;
-      setTimeout(showSlide, 3500); // move to next slide automatically
+  nextBtn.addEventListener("click", () => {
+    index++;
+    if (index < slides.length) {
+      showSlide();
     } else {
       startCountdown();
     }
-  }
+  });
 
   function startCountdown() {
+    nextBtn.style.display = "none";
     let count = 10;
     slide.innerHTML = `<h2>🕒 Countdown starting...</h2><div id='countdown'>${count}</div>`;
     const interval = setInterval(() => {
@@ -122,7 +146,7 @@
     }, 1000);
   }
 
-  // Start the show
+  // Show first slide
   showSlide();
 </script>
 
