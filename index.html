@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Don't Open It 😈</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top, #000000 10%, #1a1a1a 100%);
+      color: #fff;
+      text-align: center;
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: background 1s;
+    }
+
+    h1, h2, p { margin: 0.5em; }
+
+    button {
+      background: #ff0066;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff3385;
+      transform: scale(1.05);
+    }
+
+    .fade {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #countdown {
+      font-size: 3rem;
+      margin-top: 20px;
+    }
+
+    a {
+      color: #00ffff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="slide" class="fade"></div>
+  <button id="nextBtn">Next ➜</button>
+
+  <script>
+    const slides = [
+      "💭 Kjhgsj... 0100110 ... huh? random words? 👀",
+      "😳 You read that? You shouldn't have... because that means you just made a promise to love me forever 💞",
+      "😈 Too late now... destiny sealed! You’re officially mine 💍",
+      "🚫 Don’t open this next one... seriously, don’t!",
+      "😬 Oops... that was actually meant for my ex 😅",
+      "😂 Wait—what ex? You already axed them all with your axe! 💀",
+      "💖 Anyway... now you’re stuck with me for life 💕",
+      "😱 This slide is empty... or is it? 👀"
+    ];
+
+    const slide = document.getElementById("slide");
+    const nextBtn = document.getElementById("nextBtn");
+
+    let index = 0;
+    slide.innerHTML = slides[index];
+    setTimeout(() => slide.classList.add("show"), 200);
+
+    nextBtn.addEventListener("click", () => {
+      slide.classList.remove("show");
+      setTimeout(() => {
+        index++;
+        if (index < slides.length) {
+          slide.innerHTML = slides[index];
+          slide.classList.add("show");
+        } else {
+          startCountdown();
+        }
+      }, 400);
+    });
+
+    function startCountdown() {
+      nextBtn.style.display = "none";
+      let count = 10;
+      slide.innerHTML = `<h2>🕒 Countdown starting...</h2><div id='countdown'>${count}</div>`;
+      const interval = setInterval(() => {
+        count--;
+        document.getElementById("countdown").innerText = count;
+        if (count === 0) {
+          clearInterval(interval);
+          slide.innerHTML = `
+            <h2>Okay... open it now 💌</h2>
+            <p><a href="https://tmehmoodmscs24seecs-ops.github.io/don-t-open-it/" target="_blank">
+            Click here (and please don’t cry 🥹)</a></p>`;
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
