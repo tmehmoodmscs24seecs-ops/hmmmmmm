@@ -1,119 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Don't Open It 😈</title>
-  <style>
-    body {
-      font-family: "Poppins", sans-serif;
-      background: radial-gradient(circle at top, #000000 10%, #1a1a1a 100%);
-      color: #fff;
-      text-align: center;
-      height: 100vh;
-      overflow: hidden;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      transition: background 1s;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Don't Open It 😈</title>
 
-    h1, h2, p { margin: 0.5em; }
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+  body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    transition: background 1s ease;
+    color: white;
+  }
 
-    button {
-      background: #ff0066;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 30px;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: 0.3s;
-    }
+  h1, h2, p {
+    margin: 10px;
+    transition: opacity 1s ease;
+  }
 
-    button:hover {
-      background: #ff3385;
-      transform: scale(1.05);
-    }
+  #emojiRain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
 
-    .fade {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
+  .emoji {
+    position: absolute;
+    font-size: 2rem;
+    animation: fall 5s linear infinite;
+  }
 
-    .show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  @keyframes fall {
+    0% { transform: translateY(-10%); opacity: 1; }
+    100% { transform: translateY(110vh); opacity: 0; }
+  }
 
-    #countdown {
-      font-size: 3rem;
-      margin-top: 20px;
-    }
+  #slide {
+    z-index: 1;
+    font-size: 1.5rem;
+    max-width: 80%;
+  }
 
-    a {
-      color: #00ffff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
+  #countdown {
+    font-size: 3rem;
+    margin-top: 20px;
+  }
+</style>
 </head>
 <body>
-  <div id="slide" class="fade"></div>
-  <button id="nextBtn">Next ➜</button>
 
-  <script>
-    const slides = [
-      "💭 Kjhgsj... 0100110 ... huh? random words? 👀",
-      "😳 You read that? You shouldn't have... because that means you just made a promise to love me forever 💞",
-      "😈 Too late now... destiny sealed! You’re officially mine 💍",
-      "🚫 Don’t open this next one... seriously, don’t!",
-      "😬 Oops... that was actually meant for my ex 😅",
-      "😂 Wait—what ex? You already axed them all with your axe! 💀",
-      "💖 Anyway... now you’re stuck with me for life 💕",
-      "😱 This slide is empty... or is it? 👀"
-    ];
+<div id="emojiRain"></div>
+<div id="slide"></div>
 
-    const slide = document.getElementById("slide");
-    const nextBtn = document.getElementById("nextBtn");
+<script>
+  const slides = [
+    {text: "💭 Kjhgsj... 0100110 ... random signals from my heart 💘", bg: "linear-gradient(120deg, #ff9a9e, #fad0c4)"},
+    {text: "😳 You read that? You shouldn't have... because it means you promised to love me forever 💞", bg: "linear-gradient(120deg, #f6d365, #fda085)"},
+    {text: "😈 Too late now... destiny sealed! You're officially mine 💍", bg: "linear-gradient(120deg, #a1c4fd, #c2e9fb)"},
+    {text: "🚫 Don’t open this next one... seriously, don’t 😅", bg: "linear-gradient(120deg, #fbc2eb, #a6c1ee)"},
+    {text: "😬 Oops... that was actually meant for my ex 😅", bg: "linear-gradient(120deg, #ffecd2, #fcb69f)"},
+    {text: "😂 Wait—what ex? You axed them all with your axe! 💀", bg: "linear-gradient(120deg, #84fab0, #8fd3f4)"},
+    {text: "💖 Anyway... now you’re stuck with me for life 💕", bg: "linear-gradient(120deg, #ff9a9e, #fecfef)"},
+    {text: "😱 This slide is empty... or is it? 👀", bg: "linear-gradient(120deg, #fddb92, #d1fdff)"}
+  ];
 
-    let index = 0;
-    slide.innerHTML = slides[index];
-    setTimeout(() => slide.classList.add("show"), 200);
+  const emojis = ["💖", "😂", "😈", "😘", "💕", "💞", "🌸", "😍", "😅", "💘"];
+  const slide = document.getElementById("slide");
+  const emojiRain = document.getElementById("emojiRain");
 
-    nextBtn.addEventListener("click", () => {
-      slide.classList.remove("show");
-      setTimeout(() => {
-        index++;
-        if (index < slides.length) {
-          slide.innerHTML = slides[index];
-          slide.classList.add("show");
-        } else {
-          startCountdown();
-        }
-      }, 400);
-    });
+  function createEmoji() {
+    const emoji = document.createElement("div");
+    emoji.classList.add("emoji");
+    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    emoji.style.left = Math.random() * 100 + "vw";
+    emoji.style.animationDuration = 3 + Math.random() * 3 + "s";
+    emojiRain.appendChild(emoji);
+    setTimeout(() => emoji.remove(), 5000);
+  }
+  setInterval(createEmoji, 300);
 
-    function startCountdown() {
-      nextBtn.style.display = "none";
-      let count = 10;
-      slide.innerHTML = `<h2>🕒 Countdown starting...</h2><div id='countdown'>${count}</div>`;
-      const interval = setInterval(() => {
-        count--;
-        document.getElementById("countdown").innerText = count;
-        if (count === 0) {
-          clearInterval(interval);
-          slide.innerHTML = `
-            <h2>Okay... open it now 💌</h2>
-            <p><a href="https://tmehmoodmscs24seecs-ops.github.io/don-t-open-it/" target="_blank">
-            Click here (and please don’t cry 🥹)</a></p>`;
-        }
-      }, 1000);
+  let index = 0;
+
+  function showSlide() {
+    document.body.style.background = slides[index].bg;
+    slide.innerHTML = slides[index].text;
+
+    if (index < slides.length - 1) {
+      index++;
+      setTimeout(showSlide, 3500); // move to next slide automatically
+    } else {
+      startCountdown();
     }
-  </script>
+  }
+
+  function startCountdown() {
+    let count = 10;
+    slide.innerHTML = `<h2>🕒 Countdown starting...</h2><div id='countdown'>${count}</div>`;
+    const interval = setInterval(() => {
+      count--;
+      document.getElementById("countdown").innerText = count;
+      if (count === 0) {
+        clearInterval(interval);
+        slide.innerHTML = `<h2>Okay... open it now 💌</h2><p>Loading surprise...</p>`;
+        setTimeout(() => {
+          window.location.href = "https://tmehmoodmscs24seecs-ops.github.io/don-t-open-it/";
+        }, 2500);
+      }
+    }, 1000);
+  }
+
+  // Start the show
+  showSlide();
+</script>
+
 </body>
 </html>
